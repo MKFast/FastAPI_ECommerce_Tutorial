@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block title %}
+   Checkout
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Checkout Page</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="#">Home</a></li>
+                        <li>Checkout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+<!-- checkout area start -->
+<section class="">
+   <div class="row checkout-area mt-60px mb-40px">
+    <div class="container">
+
+        <form action="/order/create_order" method="post" class="order-form">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="billing-info-wrap">
+                        <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>First Name</label>
+                                    <input type="text" name="first_name" maxlength="50" required="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Last Name</label>
+                                    <input type="text" name="last_name" maxlength="50" required="">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Town / City</label>
+                                    <input type="text" name="city" maxlength="35" required=""/>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="billing-info mb-20px">
+                                    <label>Street Address</label>
+                                    <input type="text" name="address" maxlength="250" required="" id="id_address">
+                                </div>
+                            </div>
+<!--                            <div class="col-lg-12">-->
+<!--                                <div class="billing-info mb-20px">-->
+<!--                                    <label>Town / City</label>-->
+<!--                                    <input type="text" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-6 col-md-6">-->
+<!--                                <div class="billing-info mb-20px">-->
+<!--                                    <label>State / County</label>-->
+<!--                                    <input type="text" />-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Postcode / ZIP</label>
+                                    <input type="number" name="postal_code" maxlength="25" required=""/>
+                                </div>
+                            </div>
+<!--                            <div class="col-lg-6 col-md-6">-->
+<!--                                <div class="billing-info mb-20px">-->
+<!--                                    <label>Phone</label>-->
+<!--                                    <input type="number"  name="phone_number" maxlength="16" required=""/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="col-lg-6 col-md-6">
+                                <div class="billing-info mb-20px">
+                                    <label>Email Address</label>
+                                    <input type="email" name="email" maxlength="50" required=""/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="your-order-area">
+                        <h3>Your order</h3>
+                        <div class="your-order-wrap gray-bg-4">
+                            <div class="your-order-product-info">
+                                <div class="your-order-top">
+                                    <ul>
+                                        <li>Product</li>
+                                        <li>Total</li>
+                                    </ul>
+                                </div>
+                                <div class="your-order-middle">
+                                    <ul>
+                                        {% for item in cart %}
+                                            <li>
+                                                {{ item.quantity }}x {{ item.product.name }}
+                                                <span>{{ item.total_price}}&nbsp;</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="your-order-bottom">
+                                    <ul>
+                                        <li class="your-order-shipping">Coupon</li>
+                                        {% if cart.coupon %}
+                                            <li style="color:red;">
+                                                <span>{{ cart.coupon.code }} ({{ cart.coupon.discount }}% off)</span>
+                                                <br>
+                                                <span>- {{ cart.get_discount()}}&nbsp;$</span>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <div class="your-order-total">
+                                    <ul>
+                                        <li class="order-total">Total</li>
+                                        <li><p>{{ cart.get_total_price_after_discount() }}&nbsp;</p></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="Place-order mt-25">
+                            <input style="width:100%;" class="btn-hover" type="submit" value="Place order">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+<!-- checkout area end -->
+
+{% endblock %}
