@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb Area start -->
+<section class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="breadcrumb-content">
+                    <h1 class="breadcrumb-hrading">Single Product Page</h1>
+                    <ul class="breadcrumb-links">
+                        <li><a href="#">Home</a></li>
+                        <li>Single Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Area End -->
+
+<!-- Shop details Area start -->
+<section class="product-details-area mtb-60px">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-img product-details-tab">
+                    <div class="zoompro-wrap zoompro-2">
+                        <div class="zoompro-border zoompro-span">
+                            <img class="zoompro" src="{% if product.url %}{{ product.url }}{% endif %}" data-zoom-image="{% if product.image %}{{ product.image.url }}{% endif %}" alt="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="product-details-content">
+                    <h2>{{product.name}}</h2>
+                    <div class="pro-details-rating-wrap">
+                        <div class="rating-product">
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                            <i class="ion-android-star"></i>
+                        </div>
+                    </div>
+                    <div class="pricing-meta">
+                        <ul>
+                            <li id="current-price">{{ product.price }} $</li>
+                        </ul>
+                    </div>
+                    <p>{{product.description}}</p>
+                    <div class="pro-details-list">
+                        <ul>
+                        </ul>
+                    </div>
+                    <div class="pro-details-quality mt-0px">
+                        <div class="pro-details-quality">
+                              <form action="/cart/add" method="post">
+                                <div class="cart-plus-minus">
+                                    <input type="hidden" name="id" placeholder="id" value="{{product.id}}" />
+                                    <input type="hidden" name="update" placeholder="update" value="False" />
+                                    <input class="cart-plus-minus-box" type="text" name="quantity" value="1" />
+                                </div>
+                                <div class="pro-details-cart btn-hover">
+                                    <input class="form-deal-submit" type="submit" value="+ Add to cart">
+                                </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop details Area End -->
+
+{% include "sub-product-list/alsoLiked.html" %}
+
+{% endblock %}
